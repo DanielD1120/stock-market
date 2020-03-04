@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+
+  mysql-dev:
+    image: mysql:8.0.2
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: stocks
+    ports:
+      - "8000:3306"
+    volumes:
+      - ./sql_setup:/docker-entrypoint-initdb.d
+      - mysql_data:/var/lib/mysql
+
+  myadmin-app:
+    build:
+        context: ./app_img
+    image: adminapp_py
+    volumes:
+      - ./app_img/src:/app
+    depends_on:
+      - mysql-dev
+    ports:
+      - "8001:5000"
+
+  myclient:
+    build:
+        context: ./client_img
+    image: client_py
+    volumes:
+      - ./client_img/src:/app
+    stdin_open: true
+
+volumes:
+  mysql_data: {}
