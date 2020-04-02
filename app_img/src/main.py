@@ -45,14 +45,15 @@ def login():
 def get_bought():
     connect_to_database()
     cursor = db.cursor()
-    stocks_string = "Name" + "\t" + "Buy price" + "\t" + "Sell price\n"
+    stocks_string = '{:15}'.format('Name') + '{:15}'.format('Buy Price') + '{:15}'.format('Sell Price') + '\n'
     cursor.execute("select * from stocks_table")
     rows = cursor.fetchall()
     cursor.close()
     db.close()
 
     for row in rows:
-        stocks_string += str(row[1]) + "\t" +  str(row[2]) + "$" + "\t"  + str(row[3]) + "$\n"
+        stocks_string += '{:15}'.format(str(row[1])) + '{:15}'.format( str(row[2]) + "$") \
+            + '{:15}'.format(str(row[3]) + "$") + '\n'
 
     return stocks_string[:-1]
 
@@ -62,14 +63,16 @@ def add_stock():
     stock_name = args.get('stock_name')
     buy_price = args.get('buy_price')
     sell_price = args.get('sell_price')
+    qty = args.get('qty')
     connect_to_database()
-    values_to_add = "(\"{}\", {}, {})".format(stock_name,
+    values_to_add = "(\"{}\", {}, {}, {})".format(stock_name,
                                               buy_price,
-                                              sell_price)
+                                              sell_price,
+                                              qty)
     cursor = db.cursor()
 
     try:
-        cursor.execute("insert into stocks_table(stock_name, buy_price, sell_price) values " + values_to_add)
+        cursor.execute("insert into stocks_table(stock_name, buy_price, sell_price, qty) values " + values_to_add)
     except pymysql.err.MySQLError as e:
         return "Error inserting stock!\n" + str(e)
 
@@ -98,7 +101,7 @@ def update_stock():
     cursor.close()
     db.close()
 
-    return "Stock for {} succesfully added!".format(stock_name)
+    return "Stock for {} succesfully updated!".format(stock_name)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=False)
