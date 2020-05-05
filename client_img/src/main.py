@@ -23,7 +23,7 @@ def print_possible_commands():
     print("10. sell_stock stock_name qty")
     print("11. buy_stock stock_name qty")
     print("12. add stock_name buy_price sell_price qty")
-    print("13. update stock_name buy_price sell_proce\n")
+    print("13. update stock_name buy_price sell_price\n")
 
 def print_stocks():
     url = "http://" + server_host + "/get_stocks"

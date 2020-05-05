@@ -97,6 +97,15 @@ def update_stock():
     except pymysql.err.MySQLError as e:
         return "Error updating stock!\n" + str(e)
 
+    values_to_add = "(\"{}\", {}, {}, CURRENT_TIMESTAMP)".format(stock_name,
+                                                                buy_price,
+                                                                sell_price)
+
+    try:
+        cursor.execute("insert into stock_prices_info(stock_name, new_buy_price, new_sell_price, modify_date) values " + values_to_add)
+    except pymysql.err.MySQLError as e:
+        return "Error inserting stock price update log!\n" + str(e)
+
     db.commit()
     cursor.close()
     db.close()
