@@ -323,6 +323,14 @@ def get_my_stocks():
     cursor = db.cursor()
 
     try:
+        cursor.execute("select balance from users_table where username = \"" + user + "\"")
+    except pymysql.err.MySQLError as e:
+        return "Error getting user stocks!\n" + str(e)
+
+    rows = cursor.fetchall()
+    balance = rows[0][0]
+
+    try:
         cursor.execute("select * from users_stocks a join users_table b on a.user_id = b.id join stocks_table c on a.stock_id = c.id where username = \"" + user + "\"")
     except pymysql.err.MySQLError as e:
         return "Error getting user stocks!\n" + str(e)
@@ -336,6 +344,8 @@ def get_my_stocks():
     for row in rows:
         stocks_string += '{:15}'.format(str(row[9])) + '{:15}'.format( str(row[10]) + "$") \
             + '{:15}'.format(str(row[11]) + "$") + '{:15}'.format(str(row[2]) + "$") + '{:15}'.format(str(row[3])) + '\n'
+
+    stocks_string += "Balance: " + str(balance) + "$\n"
 
     return stocks_string
 
