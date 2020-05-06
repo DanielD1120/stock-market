@@ -244,6 +244,10 @@ def get_commands():
                 print("You are not logged in!")
         elif line.split(" ")[0] == "add_money":
             if current_user_name:
+                if len(line.split(" ")) != 2:
+                    print("Not enough parameters or too many")
+                    print("add_money value")
+                    continue
                 add_money(line)
             else:
                 print("You are not logged in!")

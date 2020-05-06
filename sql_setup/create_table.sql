@@ -41,8 +41,8 @@ create table stock_prices_info(
 
 insert into admin_credentials values ("admin", "idp2019");
 insert into users_table(username, pass, balance) values ("Daniel", "pass1", 0);
-insert into stocks_table(stock_name, buy_price, sell_price, qty) values ("Facebook", 1.5, 2.5, 1000);
-insert into stocks_table(stock_name, buy_price, sell_price, qty) values ("Google", 1.2, 4.8, 1000);
+insert into stocks_table(stock_name, buy_price, sell_price, qty) values ("Facebook", 1.5, 1.48, 1000);
+insert into stocks_table(stock_name, buy_price, sell_price, qty) values ("Google", 5, 4.97, 1000);
 insert into users_stocks values (1, 1, 5.5, 100);
 insert into stock_prices_info(stock_name, new_buy_price, new_sell_price, modify_date) values ("Facebook", 0.5, 0.48, '2020-05-01 08:00:00');
 insert into stock_prices_info(stock_name, new_buy_price, new_sell_price, modify_date) values ("Facebook", 0.55, 0.53, '2020-05-02 08:00:00');
